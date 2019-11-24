@@ -54,7 +54,7 @@ const newInventoryItem = (itemName, cost) => ({
   amountOwned: 1
 })
 
-export default function SimpleTabs() {
+export default function SimpleTabs({itemPrices, setItemPrices}) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -103,7 +103,7 @@ export default function SimpleTabs() {
         <MakeScreen/>
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <SellScreen inventory={inventory} money={money} setMoney={setMoney} setInventory={setInventory}/>
+        <SellScreen itemPrices={itemPrices} setItemPrices={setItemPrices} inventory={inventory} money={money} setMoney={setMoney} setInventory={setInventory}/>
       </TabPanel>
     </div>
   );

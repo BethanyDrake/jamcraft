@@ -1,15 +1,25 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import SimpleTabs from './Tabs';
+import {items} from './items';
 
+
+
+const initialItemPrices = {};
+items.forEach(item => {
+  initialItemPrices[item.name] = item.value;
+});
 
 
 
 
 function App() {
+
+  const [itemPrices, setItemPrices] = useState(initialItemPrices);
+
   return (
     <div className="App">
-      <SimpleTabs/>
+      <SimpleTabs itemPrices={itemPrices} setItemPrices={setItemPrices}/>
     </div>
   );
 }

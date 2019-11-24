@@ -27,13 +27,20 @@ const useStyles = makeStyles({
   },
 });
 
-const PriceFeild = ({initialValue, updateValue}) => {
+const PriceFeild = ({itemPrices, setItemPrices, itemName}) => {
   const classes = useStyles();
-  const [value, setValue] = useState(initialValue);
+  const [value, setValue] = useState(itemPrices[itemName]);
 
   const handleInputChange = event => {
-    setValue(event.target.value === '' ? '' : Number(event.target.value));
-    updateValue(value);
+    const newValue = event.target.value === '' ? 0 : Number(event.target.value)
+    setValue(newValue);
+
+
+    const newItemPrices = {
+      ...itemPrices,
+      [itemName]: newValue,
+    }
+    setItemPrices(newItemPrices)
   };
 
   const handleBlur = () => {
@@ -65,15 +72,12 @@ const PriceFeild = ({initialValue, updateValue}) => {
 
 
 
-const SellTile = ({price, itemName, amountOwned, updatePrice}) => {
-  const onPriceChange = (newPrice) => {
-    updatePrice(newPrice);
-  }
+const SellTile = ({price, itemName, amountOwned, itemPrices, setItemPrices}) => {
   return (
     <MyPaper>
     <TextBox>
     <h2> {itemName} </h2>
-    price: $<PriceFeild initialValue={price} updateValue={onPriceChange}/>
+    price: $<PriceFeild itemName={itemName} itemPrices={itemPrices} setItemPrices={setItemPrices}/>
     <p> available: {amountOwned}</p>
 
     </TextBox>
@@ -91,7 +95,7 @@ const setUpInventory = (inventory) => {
 
 let intervalId;
 
-const SellScreen = ({ inventory, money, setMoney, setInventory} ) => {
+const SellScreen = ({ inventory, money, setMoney, setInventory, itemPrices, setItemPrices} ) => {
 
   setUpInventory(inventory);
 
@@ -115,14 +119,9 @@ const SellScreen = ({ inventory, money, setMoney, setInventory} ) => {
 
 
 
-  const updatePrice = (item) => (newPrice) => {
-    item.price = newPrice;
-  }
-
-
   return (
     inventory.map((item, index) => {
-      return (<SellTile {...item} key={"SellTile"+index+JSON.stringify(item)} updatePrice={updatePrice(item)}/>);
+      return (<SellTile {...item} key={"SellTile"+index+JSON.stringify(item)} itemPrices={itemPrices} setItemPrices={setItemPrices} />);
     })
   )
 }
