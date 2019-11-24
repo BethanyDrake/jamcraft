@@ -9,6 +9,8 @@ import Box from '@material-ui/core/Box';
 import BuyScreen from './BuyScreen';
 import MakeScreen from './MakeScreen';
 import SellScreen from './SellScreen';
+import Chip from '@material-ui/core/Chip';
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -57,11 +59,18 @@ export default function SimpleTabs() {
   return (
     <div className={classes.root}>
       <AppBar position="static">
+      <div style={{display: "flex", justifyContent: "space-between"}}>
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
           <Tab label="Buy" {...a11yProps(0)} />
           <Tab label="Make" {...a11yProps(1)} />
           <Tab label="Sell" {...a11yProps(2)} />
         </Tabs>
+        <div style={{alignSelf: "center", justifyContent: "center", paddingRight: "20px"}} >
+        <Chip label="$123"/>
+        </div>
+
+        </div>
+
       </AppBar>
       <TabPanel value={value} index={0}>
         <BuyScreen/>
