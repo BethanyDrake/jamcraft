@@ -79,6 +79,7 @@ export default function SimpleTabs() {
   const canAfford = (cost) => {
     return cost <= money;
   }
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -102,7 +103,7 @@ export default function SimpleTabs() {
         <MakeScreen/>
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <SellScreen inventory={inventory}/>
+        <SellScreen inventory={inventory} money={money} setMoney={setMoney} setInventory={setInventory}/>
       </TabPanel>
     </div>
   );

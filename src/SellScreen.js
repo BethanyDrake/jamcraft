@@ -4,6 +4,8 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
 
+import {examineRandomItem} from './Customer';
+
 
 import { styled } from '@material-ui/core/styles';
 const MyPaper = styled(Paper)({
@@ -32,13 +34,14 @@ const PriceFeild = ({initialValue, updateValue}) => {
 
   const handleInputChange = event => {
     setValue(event.target.value === '' ? '' : Number(event.target.value));
+    updateValue(value);
   };
 
   const handleBlur = () => {
     if (value < 0) {
       setValue(0);
-    } else if (value > 100) {
-      setValue(100);
+    } else if (value > 300) {
+      setValue(300);
     }
   };
 
@@ -61,18 +64,18 @@ const PriceFeild = ({initialValue, updateValue}) => {
 
 }
 
-const SellTile = ({cost, itemName, amountOwned}) => {
 
-  const [price, setPrice] = useState(cost);
+
+const SellTile = ({cost, itemName, amountOwned, updatePrice}) => {
+
+  const onPriceChange = (newPrice) => {
+    updatePrice(newPrice);
+  }
   return (
     <MyPaper>
     <TextBox>
     <h2> {itemName} </h2>
-    price: $<PriceFeild initialValue={price} updateValue={setPrice}/>
-
-
-
-
+    price: $<PriceFeild initialValue={cost} updateValue={onPriceChange}/>
     <p> available: {amountOwned}</p>
 
     </TextBox>
@@ -80,10 +83,49 @@ const SellTile = ({cost, itemName, amountOwned}) => {
   )
 }
 
-const SellScreen = ({inventory}) => {
+const setUpInventory = (inventory) => {
+  inventory.forEach(item => {
+    if (item.price === undefined) item.price = item.cost;
+    if (item.value === undefined) item.value = item.cost;
+  })
+}
+
+
+let intervalId;
+
+const SellScreen = ({ inventory, money, setMoney, setInventory} ) => {
+
+  setUpInventory(inventory);
+
+
+  const customerBought = (boughtItem) => {
+    //inventory.find(item => (item.name == boughtItem && item.amountOwned > 0 );
+    if(boughtItem.amountOwned > 0) {
+      boughtItem.amountOwned--;
+      setMoney(money + boughtItem.price);
+      if (boughtItem.amountOwned === 0) {
+        const resultingInventory = inventory.filter(item => item.amountOwned !== 0);
+        setInventory(resultingInventory);
+
+      }
+    }
+  }
+
+  if (intervalId !== undefined) {
+    clearInterval(intervalId);
+  }
+  intervalId = setInterval(examineRandomItem(inventory, customerBought), 2000);
+
+
+
+  const updatePrice = (item) => (newPrice) => {
+    item.price = newPrice;
+  }
+
+
   return (
     inventory.map((item, index) => {
-      return (<SellTile {...item} key={"SellTile"+index}/>);
+      return (<SellTile {...item} key={"SellTile"+index} updatePrice={updatePrice(item)}/>);
     })
   )
 }

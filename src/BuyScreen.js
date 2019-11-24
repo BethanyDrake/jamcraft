@@ -31,10 +31,9 @@ const IngredientTile = (props) => {
 }
 
 
+
+
 const BuyScreen = (props) => {
-
-
-
   const newIngredient = (name, cost, numAvailable) => ({
     name, cost, numAvailable,
   })
