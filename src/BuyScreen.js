@@ -31,7 +31,7 @@ const IngredientTile = (props) => {
 }
 
 
-const BuyScreen = () => {
+const BuyScreen = (props) => {
 
 
 
@@ -44,14 +44,19 @@ const BuyScreen = () => {
       newIngredient("salt", 4, 10),
       newIngredient("water", 1, 100),
       newIngredient("sugar", 10, 10),
+      newIngredient("gold leaf", 300, 10),
   ]
   const [ingredients, setIngredients] = useState(initialIngredients);
   const [buyCount, setBuyCount] = useState(0);
 
   const onBuy = (ingredient) => () => {
-    ingredient.numAvailable--;
-    setIngredients(ingredients);
-    setBuyCount(buyCount + 1);
+    if (props.canAfford(ingredient.cost) && ingredient.numAvailable > 0) {
+      ingredient.numAvailable--;
+      setIngredients(ingredients);
+      setBuyCount(buyCount + 1);
+      props.onBuy(ingredient.cost, ingredient.name);
+    }
+
   }
 
   return (

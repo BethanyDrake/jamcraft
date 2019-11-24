@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -56,6 +56,15 @@ export default function SimpleTabs() {
     setValue(newValue);
   };
 
+  const [money, setMoney] = useState(500);
+
+  const onBuy = (cost, ingredientName) => {
+    console.log(ingredientName);
+    setMoney(money - cost)
+  }
+  const canAfford = (cost) => {
+    return cost <= money;
+  }
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -66,14 +75,14 @@ export default function SimpleTabs() {
           <Tab label="Sell" {...a11yProps(2)} />
         </Tabs>
         <div style={{alignSelf: "center", justifyContent: "center", paddingRight: "20px"}} >
-        <Chip label="$123"/>
+        <Chip label={`$${money}`}/>
         </div>
 
         </div>
 
       </AppBar>
       <TabPanel value={value} index={0}>
-        <BuyScreen/>
+        <BuyScreen onBuy={onBuy} canAfford={canAfford}/>
       </TabPanel>
       <TabPanel value={value} index={1}>
         <MakeScreen/>
