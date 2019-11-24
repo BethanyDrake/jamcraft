@@ -61,7 +61,7 @@ const BuyScreen = (props) => {
 
   return (
 
-    <div style={{"display":"flex"}}>
+    <div style={{display:"flex"}}>
     {ingredients.map( (ingredient, index) => {
       return(
           <IngredientTile {...ingredient} key={index} onBuy={onBuy(ingredient)} />

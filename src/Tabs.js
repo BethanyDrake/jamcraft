@@ -48,6 +48,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const newInventoryItem = (itemName, cost) => ({
+  itemName,
+  cost,
+  amountOwned: 1
+})
+
 export default function SimpleTabs() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
@@ -57,10 +63,18 @@ export default function SimpleTabs() {
   };
 
   const [money, setMoney] = useState(500);
+  const [inventory, setInventory] = useState([]);
 
   const onBuy = (cost, ingredientName) => {
-    console.log(ingredientName);
-    setMoney(money - cost)
+
+    const matchingItemSlot = inventory.find(item => item.itemName === ingredientName);
+    if (matchingItemSlot) {
+      matchingItemSlot.amountOwned += 1;
+    } else {
+      inventory.push(newInventoryItem(ingredientName, cost));
+    }
+    setMoney(money - cost);
+    setInventory(inventory);
   }
   const canAfford = (cost) => {
     return cost <= money;
@@ -88,7 +102,7 @@ export default function SimpleTabs() {
         <MakeScreen/>
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <SellScreen/>
+        <SellScreen inventory={inventory}/>
       </TabPanel>
     </div>
   );
