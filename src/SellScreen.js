@@ -3,6 +3,7 @@ import './App.css';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
+import Button from '@material-ui/core/Button';
 
 import {examineRandomItem} from './Customer';
 
@@ -26,6 +27,8 @@ const useStyles = makeStyles({
     width: 42,
   },
 });
+
+
 
 const PriceFeild = ({itemPrices, setItemPrices, itemName}) => {
   const classes = useStyles();
@@ -72,7 +75,13 @@ const PriceFeild = ({itemPrices, setItemPrices, itemName}) => {
 
 
 
-const SellTile = ({price, itemName, amountOwned, itemPrices, setItemPrices}) => {
+const NotYetForSaleTile = ({price, itemName, amountOwned, itemPrices, setItemPrices, setItemForSale}) => {
+
+  const setForSale = () => {
+    setItemForSale(itemName);
+  }
+
+
   return (
     <MyPaper>
     <TextBox>
@@ -81,6 +90,25 @@ const SellTile = ({price, itemName, amountOwned, itemPrices, setItemPrices}) => 
     <p> available: {amountOwned}</p>
 
     </TextBox>
+    <Button variant="contained" onClick={setForSale}> Sell </Button>
+    </MyPaper>
+  )
+}
+
+const ForSaleTile = ({price, itemName, amountOwned, itemPrices, setItemPrices, removeItemFromSale}) => {
+
+  const removeFromSale = () => {
+    removeItemFromSale(itemName);
+  }
+  return (
+    <MyPaper>
+    <TextBox>
+    <h2> {itemName} </h2>
+    price: $<PriceFeild itemName={itemName} itemPrices={itemPrices} setItemPrices={setItemPrices}/>
+    <p> available: {amountOwned}</p>
+
+    </TextBox>
+    <Button variant="contained" onClick={removeFromSale}> Remove from sale </Button>
     </MyPaper>
   )
 }
@@ -117,13 +145,34 @@ const SellScreen = ({ inventory, money, setMoney, setInventory, itemPrices, setI
   }
   intervalId = setInterval(examineRandomItem(inventory, customerBought), 2000);
 
-
+  const setItemForSaleStatus = (newStatus) => (itemName) => {
+    const item = inventory.find(item => item.itemName === itemName);
+    item.isForSale = newStatus;
+    setInventory([...inventory]);
+  }
 
   return (
-    inventory.map((item, index) => {
-      return (<SellTile {...item} key={"SellTile"+index+JSON.stringify(item)} itemPrices={itemPrices} setItemPrices={setItemPrices} />);
+<div style={{display:"flex", justifyContent: "space-around"}}>
+<div>
+<h1>Inventory</h1>
+    {
+      inventory.filter(item => !item.isForSale).map((item, index) => {
+      return (<NotYetForSaleTile {...item} key={"SellTile"+index+JSON.stringify(item)} itemPrices={itemPrices} setItemPrices={setItemPrices} setItemForSale={setItemForSaleStatus(true)} />);
     })
-  )
+  }
+  </div>
+  <div>
+
+<h1>For Sale</h1>
+{
+    inventory.filter(item => item.isForSale).map((item, index) => {
+      return (<ForSaleTile {...item} key={"SellTile"+index+JSON.stringify(item)} itemPrices={itemPrices} setItemPrices={setItemPrices} removeItemFromSale={setItemForSaleStatus(false)} />);
+    })
+  }
+  </div>
+
+    </div>
+  );
 }
 
 

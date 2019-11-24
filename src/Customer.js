@@ -19,8 +19,10 @@ const getRandomItemInArray = (array) => {
 
 
 export const examineRandomItem = (items, buy) => () => {
-  if (items.length === 0) return;
-  const item = getRandomItemInArray(items);
+
+  const forSaleItems = items.filter(item => item.isForSale);
+  if (forSaleItems.length === 0) return;
+  const item = getRandomItemInArray(forSaleItems);
   const chanceOfBuyingItem = chanceOfBuying(item.price, item.value);
   if (Math.random() < chanceOfBuyingItem) {
     buy(item);
