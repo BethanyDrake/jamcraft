@@ -29,7 +29,6 @@ const useStyles = makeStyles({
 
 const PriceFeild = ({initialValue, updateValue}) => {
   const classes = useStyles();
-
   const [value, setValue] = useState(initialValue);
 
   const handleInputChange = event => {
@@ -67,7 +66,6 @@ const PriceFeild = ({initialValue, updateValue}) => {
 
 
 const SellTile = ({price, itemName, amountOwned, updatePrice}) => {
-  console.log({"selltile":"yep", price, itemName, amountOwned, updatePrice} );
   const onPriceChange = (newPrice) => {
     updatePrice(newPrice);
   }
@@ -96,7 +94,6 @@ let intervalId;
 const SellScreen = ({ inventory, money, setMoney, setInventory} ) => {
 
   setUpInventory(inventory);
-  console.log(inventory);
 
   const customerBought = (boughtItem) => {
     //inventory.find(item => (item.name == boughtItem && item.amountOwned > 0 );
@@ -125,8 +122,7 @@ const SellScreen = ({ inventory, money, setMoney, setInventory} ) => {
 
   return (
     inventory.map((item, index) => {
-      console.log(item);
-      return (<SellTile {...item} key={"SellTile"+index} updatePrice={updatePrice(item)}/>);
+      return (<SellTile {...item} key={"SellTile"+index+JSON.stringify(item)} updatePrice={updatePrice(item)}/>);
     })
   )
 }
