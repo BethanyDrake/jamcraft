@@ -66,8 +66,8 @@ const PriceFeild = ({initialValue, updateValue}) => {
 
 
 
-const SellTile = ({cost, itemName, amountOwned, updatePrice}) => {
-
+const SellTile = ({price, itemName, amountOwned, updatePrice}) => {
+  console.log({"selltile":"yep", price, itemName, amountOwned, updatePrice} );
   const onPriceChange = (newPrice) => {
     updatePrice(newPrice);
   }
@@ -75,7 +75,7 @@ const SellTile = ({cost, itemName, amountOwned, updatePrice}) => {
     <MyPaper>
     <TextBox>
     <h2> {itemName} </h2>
-    price: $<PriceFeild initialValue={cost} updateValue={onPriceChange}/>
+    price: $<PriceFeild initialValue={price} updateValue={onPriceChange}/>
     <p> available: {amountOwned}</p>
 
     </TextBox>
@@ -96,7 +96,7 @@ let intervalId;
 const SellScreen = ({ inventory, money, setMoney, setInventory} ) => {
 
   setUpInventory(inventory);
-
+  console.log(inventory);
 
   const customerBought = (boughtItem) => {
     //inventory.find(item => (item.name == boughtItem && item.amountOwned > 0 );
@@ -125,6 +125,7 @@ const SellScreen = ({ inventory, money, setMoney, setInventory} ) => {
 
   return (
     inventory.map((item, index) => {
+      console.log(item);
       return (<SellTile {...item} key={"SellTile"+index} updatePrice={updatePrice(item)}/>);
     })
   )
