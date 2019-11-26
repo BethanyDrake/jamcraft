@@ -1,18 +1,18 @@
 export const items = [
   {
-    name: "water",
-    value: 1,
+    name: "pure red",
+    colour: [15, 0, 0],
+    value: 100,
   },
   {
-    name: "salt",
-    value: 4,
+    name: "pure green",
+    colour: [0, 15, 0],
+    value: 50,
   },
   {
-    name: "sugar",
-    value:  10,
+    name: "pure blue",
+    colour: [0, 0, 15],
+    value:  200,
   },
-  {
-    name: "gold leaf",
-    value: 300,
-  },
+
 ];

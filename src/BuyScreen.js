@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import './App.css';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import {items} from './items';
+
+import {ColourIcon} from './ColourIcon';
 
 
 import { styled } from '@material-ui/core/styles';
@@ -14,17 +17,17 @@ const TextBox = ({children}) => {
   return <div style={{"padding":'10px'}}>{children}</div>
 }
 
-
-const IngredientTile = (props) => {
+const IngredientTile = ({name, cost, numAvailable, onBuy, colour}) => {
   return (
     <MyPaper>
     <TextBox>
-    <h2> {props.name} </h2>
-    <p> cost: ${props.cost}</p>
+    <ColourIcon colour={colour}/>
+    <h3> {name} </h3>
+    <p> cost: ${cost}</p>
 
-    <p> available: {props.numAvailable}</p>
+    <p> available: {numAvailable}</p>
 
-    <Button variant="contained" onClick={props.onBuy}>Buy</Button>
+    <Button variant="contained" onClick={onBuy}>Buy</Button>
     </TextBox>
     </MyPaper>
   )
@@ -34,17 +37,15 @@ const IngredientTile = (props) => {
 
 
 const BuyScreen = (props) => {
-  const newIngredient = (name, cost, numAvailable) => ({
-    name, cost, numAvailable,
+  const newIngredient = (name, cost, numAvailable, colour) => ({
+    name, cost, numAvailable, colour
   })
 
 
-  const initialIngredients = [
-      newIngredient("salt", 4, 10),
-      newIngredient("water", 1, 100),
-      newIngredient("sugar", 10, 10),
-      newIngredient("gold leaf", 300, 10),
-  ]
+  const initialIngredients = ["pure red", "pure green"].map(ingredientName => {
+    const item = items.find(item => item.name === ingredientName) || {};
+    return newIngredient(item.name, item.value, 3, item.colour);
+  })
   const [ingredients, setIngredients] = useState(initialIngredients);
   const [buyCount, setBuyCount] = useState(0);
 
@@ -53,7 +54,7 @@ const BuyScreen = (props) => {
       ingredient.numAvailable--;
       setIngredients(ingredients);
       setBuyCount(buyCount + 1);
-      props.onBuy(ingredient.cost, ingredient.name);
+      props.onBuy(ingredient.cost, ingredient.name, ingredient.colour);
     }
 
   }

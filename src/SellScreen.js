@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 
 import {examineRandomItem} from './Customer';
 
+import {ColourIcon} from './ColourIcon';
 
 import { styled } from '@material-ui/core/styles';
 const MyPaper = styled(Paper)({
@@ -75,7 +76,7 @@ const PriceFeild = ({itemPrices, setItemPrices, itemName}) => {
 
 
 
-const NotYetForSaleTile = ({price, itemName, amountOwned, itemPrices, setItemPrices, setItemForSale}) => {
+const NotYetForSaleTile = ({price, itemName, amountOwned, itemPrices, setItemPrices, setItemForSale, colour}) => {
 
   const setForSale = () => {
     setItemForSale(itemName);
@@ -84,30 +85,31 @@ const NotYetForSaleTile = ({price, itemName, amountOwned, itemPrices, setItemPri
 
   return (
     <MyPaper>
-    <TextBox>
-    <h2> {itemName} </h2>
-    price: $<PriceFeild itemName={itemName} itemPrices={itemPrices} setItemPrices={setItemPrices}/>
-    <p> available: {amountOwned}</p>
-
-    </TextBox>
+    <SaleTileInformation itemName={itemName} itemPrices={itemPrices} setItemPrices={setItemPrices} colour={colour} amountOwned={amountOwned}/>
     <Button variant="contained" onClick={setForSale}> Sell </Button>
     </MyPaper>
   )
 }
 
-const ForSaleTile = ({price, itemName, amountOwned, itemPrices, setItemPrices, removeItemFromSale}) => {
+const SaleTileInformation = ({colour, amountOwned, itemName, itemPrices, setItemPrices}) => {
+  return (
+    <TextBox>
+    <ColourIcon colour={colour}/>
+    <h3> {itemName} </h3>
+    price: $<PriceFeild itemName={itemName} itemPrices={itemPrices} setItemPrices={setItemPrices}/>
+    <p> available: {amountOwned}</p>
+    </TextBox>
+  )
+}
+
+const ForSaleTile = ({price, itemName, amountOwned, itemPrices, setItemPrices, removeItemFromSale, colour}) => {
 
   const removeFromSale = () => {
     removeItemFromSale(itemName);
   }
   return (
     <MyPaper>
-    <TextBox>
-    <h2> {itemName} </h2>
-    price: $<PriceFeild itemName={itemName} itemPrices={itemPrices} setItemPrices={setItemPrices}/>
-    <p> available: {amountOwned}</p>
-
-    </TextBox>
+    <SaleTileInformation itemName={itemName} itemPrices={itemPrices} setItemPrices={setItemPrices} colour={colour} amountOwned={amountOwned}/>
     <Button variant="contained" onClick={removeFromSale}> Remove from sale </Button>
     </MyPaper>
   )

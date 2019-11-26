@@ -48,9 +48,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const newInventoryItem = (itemName, cost) => ({
+const newInventoryItem = (itemName, cost, colour) => ({
   itemName,
   cost,
+  colour,
   amountOwned: 1
 })
 
@@ -65,13 +66,13 @@ export default function SimpleTabs({itemPrices, setItemPrices}) {
   const [money, setMoney] = useState(500);
   const [inventory, setInventory] = useState([]);
 
-  const onBuy = (cost, ingredientName) => {
+  const onBuy = (cost, ingredientName, colour) => {
 
     const matchingItemSlot = inventory.find(item => item.itemName === ingredientName);
     if (matchingItemSlot) {
       matchingItemSlot.amountOwned += 1;
     } else {
-      inventory.push(newInventoryItem(ingredientName, cost));
+      inventory.push(newInventoryItem(ingredientName, cost, colour));
     }
     setMoney(money - cost);
     setInventory(inventory);
