@@ -101,7 +101,7 @@ export default function SimpleTabs({itemPrices, setItemPrices}) {
         <BuyScreen onBuy={onBuy} canAfford={canAfford}/>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <MakeScreen/>
+        <MakeScreen ingredients={inventory} setIngredients={setInventory}/>
       </TabPanel>
       <TabPanel value={value} index={2}>
         <SellScreen itemPrices={itemPrices} setItemPrices={setItemPrices} inventory={inventory} money={money} setMoney={setMoney} setInventory={setInventory}/>

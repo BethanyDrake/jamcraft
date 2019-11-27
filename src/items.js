@@ -14,5 +14,10 @@ export const items = [
     colour: [0, 0, 15],
     value:  200,
   },
+  {
+    name: "blah",
+    colour: [6, 6, 0],
+    value:  10,
+  },
 
 ];
