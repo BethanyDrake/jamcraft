@@ -3,6 +3,8 @@ import './App.css';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import {ColourIcon} from './ColourIcon';
+import {items} from './items';
+import {colourToHex} from './colourUtil';
 
 import { styled } from '@material-ui/core/styles';
 const MyPaper = styled(Paper)({
@@ -36,6 +38,7 @@ const MakeTile = ({itemName, amountOwned, colour, toggleSelectedItem, isSelected
 
 
 const MakeScreen = ({ingredients, setIngredients}) => {
+  console.log(ingredients);
   const [item1, setItem1] = useState(undefined);
   const [item2, setItem2] = useState(undefined);
   const toggleSelectedItem = (itemName) => {
@@ -52,17 +55,65 @@ const MakeScreen = ({ingredients, setIngredients}) => {
     else if (!item2) setItem2(itemName);
   }
 
+  const getRemainingIngredients = (name1, name2) => {
+
+    const remainingIngredients = ingredients.map(i => ({
+      amountOwned: (i.itemName === item1 || i.itemName === item2) ? i.amountOwned-- : i.amountOwned,
+      ...i,
+    })).filter(i => {
+      console.log("filtering", i);
+      return i.amountOwned > 0
+    });
+
+    console.log("after filtering", remainingIngredients);
+
+    return remainingIngredients;
+  };
+
   const make = () => {
     const ingredient1 = ingredients.filter(ingredient => ingredient.itemName === item1)[0];
     const ingredient2 = ingredients.filter(ingredient => ingredient.itemName === item2)[0];
+
+
     const colour1 = ingredient1.colour;
     const colour2 = ingredient2.colour;
     const mix = (c1, c2) => {
-      return Math.floor((c1 + c2) / 4) * 2;
+      return Math.ceil((c1 + c2) / 8) * 4;
     }
 
     const newColour = ([0,0,0]).map((_,i) => mix(colour1[i], colour2[i]));
+
+    const remaingIngredients = getRemainingIngredients(item1, item2);
+
+    setItem1(undefined);
+    setItem2(undefined);
+
     console.log(newColour);
+    const newColourName = items.filter(i => colourToHex(i.colour) === colourToHex(newColour))[0].name;
+
+
+    const existingIngredient = remaingIngredients.filter(i => i.itemName === newColourName)[0];
+    if (existingIngredient) {
+      existingIngredient.amountOwned+=2;
+      setIngredients([...remaingIngredients]);
+    }
+    else {
+      const newIngredient = {
+        itemName: newColourName,
+        cost: Math.floor((ingredient1.cost + ingredient2.cost) / 2),
+        colour: newColour,
+        amountOwned: 2,
+      }
+
+      setIngredients([
+        ...remaingIngredients,
+        newIngredient,
+      ])
+
+    }
+
+
+
 
   }
 

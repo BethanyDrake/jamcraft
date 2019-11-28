@@ -42,7 +42,7 @@ const BuyScreen = (props) => {
   })
 
 
-  const initialIngredients = ["pure red", "pure green", "blah"].map(ingredientName => {
+  const initialIngredients = ["red", "blue", "harlequin"].map(ingredientName => {
     const item = items.find(item => item.name === ingredientName) || {};
     return newIngredient(item.name, item.value, 3, item.colour);
   })
