@@ -43,9 +43,22 @@ const makeButtonStyles = {
   width: "50%",
 }
 
+const isOwned = (item, ingredients) => {
+  return ingredients.filter(i => i.itemName === item).length > 0;
+}
+
 const MakeScreen = ({ingredients, setIngredients}) => {
   const [item1, setItem1] = useState(undefined);
   const [item2, setItem2] = useState(undefined);
+
+  //make sure that selected items are still present
+  if (item1 && !isOwned(item1, ingredients)) {
+    setItem1(undefined);
+  }
+  if (item2 && !isOwned(item2, ingredients)) {
+    setItem2(undefined);
+  }
+
   const toggleSelectedItem = (itemName) => {
     if (item1 === itemName) {
       setItem1(undefined);
