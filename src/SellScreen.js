@@ -6,12 +6,12 @@ import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 
 import {examineRandomItem} from './Customer';
-
+import {buttonStyles} from './util';
 import {ColourIcon} from './ColourIcon';
 
 import { styled } from '@material-ui/core/styles';
 const MyPaper = styled(Paper)({
-  width: 120,
+  width: 200,
   margin: "20px"
 });
 
@@ -86,7 +86,9 @@ const NotYetForSaleTile = ({price, itemName, amountOwned, itemPrices, setItemPri
   return (
     <MyPaper>
     <SaleTileInformation itemName={itemName} itemPrices={itemPrices} setItemPrices={setItemPrices} colour={colour} amountOwned={amountOwned}/>
-    <Button variant="contained" onClick={setForSale}> Sell </Button>
+        <TextBox>
+    <Button style={buttonStyles} variant="contained" onClick={setForSale}> Sell </Button>
+        </TextBox>
     </MyPaper>
   )
 }
@@ -110,7 +112,9 @@ const ForSaleTile = ({price, itemName, amountOwned, itemPrices, setItemPrices, r
   return (
     <MyPaper>
     <SaleTileInformation itemName={itemName} itemPrices={itemPrices} setItemPrices={setItemPrices} colour={colour} amountOwned={amountOwned}/>
-    <Button variant="contained" onClick={removeFromSale}> Remove from sale </Button>
+        <TextBox>
+    <Button style={buttonStyles} variant="contained" onClick={removeFromSale}> Remove from sale </Button>
+        </TextBox>
     </MyPaper>
   )
 }

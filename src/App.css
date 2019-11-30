@@ -24,6 +24,19 @@ h2 {
   margin: 0;
 }
 
+h3 {
+  text-transform: capitalize;
+  margin: 0;
+  text-align: center;
+}
+
+h4 {
+  text-transform: capitalize;
+  margin: 0;
+}
+
+
+
 p {
   margin: 0;
 }

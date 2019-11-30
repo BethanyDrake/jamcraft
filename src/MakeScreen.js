@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import {ColourIcon} from './ColourIcon';
 import {items} from './items';
 import {colourToHex, mix} from './colourUtil';
+import {buttonStyles} from './util';
 
 import { styled } from '@material-ui/core/styles';
 const MyPaper = styled(Paper)({
@@ -30,12 +31,17 @@ const MakeTile = ({itemName, amountOwned, colour, toggleSelectedItem, isSelected
     <TextBox>
     <h3> {itemName} </h3>
     <p> available: {amountOwned}</p>
+
+    <Button style={buttonStyles} variant="contained" disabled={!isSelected && !canSelect} onClick={toggleSelected} > {isSelected ? 'Nah' : 'Use' }</Button>
     </TextBox>
-    <Button variant="contained" disabled={!isSelected && !canSelect} onClick={toggleSelected} > {isSelected ? 'Nah' : 'Use' }</Button>
     </MyPaper>
   )
 }
 
+
+const makeButtonStyles = {
+  width: "50%",
+}
 
 const MakeScreen = ({ingredients, setIngredients}) => {
   const [item1, setItem1] = useState(undefined);
@@ -112,11 +118,11 @@ const MakeScreen = ({ingredients, setIngredients}) => {
 
   return (
     <>
-    <div>
+    <div style={{display: "flex", justifyContent: "center"}}>
     {
       (item1 && item2)
-      ? (<Button variant="contained" onClick={make} > make</Button>)
-      : (<Button variant="contained" disabled > can't make </Button>)
+      ? (<Button style={makeButtonStyles} variant="contained" onClick={make} > make</Button>)
+      : (<Button style={makeButtonStyles} variant="contained" disabled > can't make </Button>)
     }
     </div>
     <div style={{display:"flex", width:"100%", flexWrap:"wrap"}}>

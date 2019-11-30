@@ -38,8 +38,8 @@ function SimpleTable({rows}) {
           {rows.map(row => (
             <TableRow key={row.name}>
               <TableCell component="th" scope="row">
-                <InlineColourIcon colourName={row.name} />
-                {row.name}
+                <h4><InlineColourIcon colourName={row.name} />
+                <span style={{paddingLeft:"10px"}}>{row.name}</span></h4>
               </TableCell>
               <TableCell align="center">{row.sold}</TableCell>
               <TableCell align="center">${row.averagePrice}</TableCell>

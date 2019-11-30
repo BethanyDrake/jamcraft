@@ -3,7 +3,8 @@ import './App.css';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import {items} from './items';
-import {getRandomItemInArray} from './util'
+import {getRandomItemInArray, buttonStyles} from './util'
+
 
 import {ColourIcon} from './ColourIcon';
 
@@ -28,7 +29,7 @@ const IngredientTile = ({name, cost, numAvailable, onBuy, colour}) => {
 
     <p> available: {numAvailable}</p>
 
-    <Button variant="contained" onClick={onBuy}>Buy</Button>
+    <Button style={buttonStyles} variant="contained" onClick={onBuy}>Buy</Button>
     </TextBox>
     </MyPaper>
   )
