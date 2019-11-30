@@ -49,13 +49,21 @@ const BuyScreen = (props) => {
   //   return newIngredient(item.name, item.value, 10, item.colour);
   // })
   const [ingredients, setIngredients] = useState([]);
+  const [shouldRestock, setShouldRestock] = useState(true);
 
-  // if (intervalId !== undefined) {
-  //   clearInterval(intervalId);
-  // }
+console.log(shouldRestock);
+  if(shouldRestock) {
+    tryRestock(ingredients, setIngredients);
+    setShouldRestock(false);
+  }
+
+
   if (intervalId === undefined) {
-    restock(ingredients, setIngredients);
-    intervalId = setInterval(() => tryRestock(ingredients, setIngredients), 20000);
+    intervalId = setInterval(() => {
+      console.log("interval");
+      setShouldRestock(true);
+    }
+      , 20000);
   }
 
   const [buyCount, setBuyCount] = useState(0);
@@ -84,15 +92,26 @@ const BuyScreen = (props) => {
   )
 }
 
-const tryRestock = (ingredients, setIngredients) => {
-  // just remove everything instead
-  restock([], setIngredients);
 
+const tryRestock = (ingredients, setIngredients) => {
+  const minimumIngredientsForRestock = 5;
+  const amountLeft = ingredients.reduce((acc, i) => {
+
+    return acc +i.numAvailable}
+    , 0)
+  if ( amountLeft <= minimumIngredientsForRestock) {
+    restock(ingredients, setIngredients);
+  } else {
+    // just remove everything instead
+      restock([], setIngredients);
+  }
 }
+
 
 
 const restock = (ingredients, setIngredients) => {
   //adds 5 units of 3 random ingredients
+
   const amountToAdd = 5;
   const ingredientsToAdd = 3;
   const newIngredients = [...ingredients];
