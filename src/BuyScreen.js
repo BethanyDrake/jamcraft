@@ -42,13 +42,6 @@ const newIngredient = (name, cost, numAvailable, colour) => ({
 let intervalId;
 
 const BuyScreen = (props) => {
-
-
-
-  // const initialIngredients = ["yellow", "pink pizzazz", "cyan"].map(ingredientName => {
-  //   const item = items.find(item => item.name === ingredientName) || {};
-  //   return newIngredient(item.name, item.value, 10, item.colour);
-  // })
   const [ingredients, setIngredients] = useState([]);
   const [shouldRestock, setShouldRestock] = useState(true);
 
