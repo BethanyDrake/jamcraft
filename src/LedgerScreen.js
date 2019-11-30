@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import { styled } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -20,9 +19,6 @@ const useStyles = makeStyles({
     minWidth: 650,
   },
 });
-
-
-
 
 function SimpleTable({rows}) {
   const classes = useStyles();
@@ -80,7 +76,6 @@ const getSaleCount = (saleHistory, itemName) => {
 const getAveragePrice = (saleHistory, itemName) => {
 
   const priceList = saleHistory.filter(lineItem => lineItem.itemName === itemName).map(lineItem => lineItem.salePrice);
-  console.log(priceList);
   const totalPrice = priceList.reduce(
     (acc, curr) => acc + curr,
     0
@@ -92,7 +87,6 @@ const getAveragePrice = (saleHistory, itemName) => {
 const getBestPrice = (saleHistory, itemName) => {
 
   const priceList = saleHistory.filter(lineItem => lineItem.itemName === itemName).map(lineItem => lineItem.salePrice);
-  console.log(priceList);
   const bestPrice = priceList.reduce(
     (acc, curr) => curr > acc ? curr : acc,
     0
@@ -104,7 +98,6 @@ const getBestPrice = (saleHistory, itemName) => {
 
 
 const LedgerScreen = ({saleHistory}) => {
-  console.log("LedgerScreen", saleHistory);
 
   const uniqueItems = getUniqueItemNames(saleHistory);
 

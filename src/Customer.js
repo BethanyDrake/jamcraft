@@ -15,7 +15,6 @@ const chanceOfBuying = (price, value) => {
 
 
 export const examineRandomItem = (items, buy) => {
-  console.log("examining items", items);
   const forSaleItems = items.filter(item => item.isForSale);
   if (forSaleItems.length === 0) return;
   const item = getRandomItemInArray(forSaleItems);

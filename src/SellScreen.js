@@ -126,11 +126,9 @@ let intervalId;
 
 const customerBought = (boughtItem, inventory, setInventory, setMoney, updateSaleHistory, money, itemPrices) => {
   const price = itemPrices[boughtItem.itemName];
-  console.log(price);
   //inventory.find(item => (item.name == boughtItem && item.amountOwned > 0 );
   if(boughtItem.amountOwned > 0) {
     boughtItem.amountOwned--;
-    console.log("bought item", boughtItem);
     setMoney(money + price);
     updateSaleHistory(boughtItem.itemName, price);
     if (boughtItem.amountOwned === 0) {
@@ -147,7 +145,6 @@ const SellScreen = ({ inventory, money, setMoney, setInventory, itemPrices, setI
 
   const [shouldExamineItem, setShouldExamineItem] = useState(false);
   if (shouldExamineItem) {
-    console.log("examining item", inventory);
 
     const onBuy = (item) => customerBought(item, inventory, setInventory, setMoney, updateSaleHistory, money, itemPrices);
     examineRandomItem(inventory, onBuy);

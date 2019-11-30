@@ -127,9 +127,6 @@ const unvaluedItems = [
   { name: "white", colour: [8, 8, 8], value: 10, hexString: "#FFFFFF" }
 ];
 
-
-
-
 export const items = unvaluedItems.map(item => {
   const value = Math.floor((Math.random() * 200));
   return {
