@@ -38,7 +38,6 @@ const MakeTile = ({itemName, amountOwned, colour, toggleSelectedItem, isSelected
 
 
 const MakeScreen = ({ingredients, setIngredients}) => {
-  console.log(ingredients);
   const [item1, setItem1] = useState(undefined);
   const [item2, setItem2] = useState(undefined);
   const toggleSelectedItem = (itemName) => {
@@ -61,11 +60,9 @@ const MakeScreen = ({ingredients, setIngredients}) => {
       amountOwned: (i.itemName === item1 || i.itemName === item2) ? i.amountOwned-- : i.amountOwned,
       ...i,
     })).filter(i => {
-      console.log("filtering", i);
       return i.amountOwned > 0
     });
 
-    console.log("after filtering", remainingIngredients);
 
     return remainingIngredients;
   };
@@ -88,7 +85,6 @@ const MakeScreen = ({ingredients, setIngredients}) => {
     setItem1(undefined);
     setItem2(undefined);
 
-    console.log(newColour);
     const newColourName = items.filter(i => colourToHex(i.colour) === colourToHex(newColour))[0].name;
 
 

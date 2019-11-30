@@ -6,16 +6,12 @@
 
 //after looking at an item, they have a chance of leaving the store. if they have looked at all the items, they will leave the store.
 
-
+import {getRandomItemInArray} from './util'
 const chanceOfBuying = (price, value) => {
   const chance = 0.9 - (0.4 * price / value);
   return chance > 0 ? chance : 0;
 }
 
-const getRandomItemInArray = (array) => {
-  const index = Math.floor(Math.random() * array.length);
-  return array[index];
-}
 
 
 export const examineRandomItem = (items, buy) => () => {

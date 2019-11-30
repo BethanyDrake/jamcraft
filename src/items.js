@@ -78,7 +78,7 @@ export const items = [
   { name: "carmine", colour: [6, 0, 2], value: 10, hexString: "#C00040" },
   { name: "magenta", colour: [6, 0, 4], value: 10, hexString: "#C00080" },
   { name: "mulberry", colour: [6, 0, 6], value: 10, hexString: "#C000C0" },
-  { name: "purple x11", colour: [6, 0, 8], value: 10, hexString: "#C000FF" },
+  { name: "purple 2.0", colour: [6, 0, 8], value: 10, hexString: "#C000FF" },
   { name: "rust", colour: [6, 2, 0], value: 10, hexString: "#C04000" },
   { name: "choral", colour: [6, 2, 2], value: 10, hexString: "#C04040" },
   { name: "fuchsia", colour: [6, 2, 4], value: 10, hexString: "#C04080" },
