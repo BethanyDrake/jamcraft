@@ -51,7 +51,6 @@ const BuyScreen = (props) => {
   const [ingredients, setIngredients] = useState([]);
   const [shouldRestock, setShouldRestock] = useState(true);
 
-console.log(shouldRestock);
   if(shouldRestock) {
     tryRestock(ingredients, setIngredients);
     setShouldRestock(false);
@@ -60,7 +59,6 @@ console.log(shouldRestock);
 
   if (intervalId === undefined) {
     intervalId = setInterval(() => {
-      console.log("interval");
       setShouldRestock(true);
     }
       , 20000);

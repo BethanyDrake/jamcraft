@@ -122,30 +122,45 @@ const setUpInventory = (inventory) => {
   })
 }
 
-
 let intervalId;
 
-const SellScreen = ({ inventory, money, setMoney, setInventory, itemPrices, setItemPrices} ) => {
+const customerBought = (boughtItem, inventory, setInventory, setMoney, updateSaleHistory, money, itemPrices) => {
+  const price = itemPrices[boughtItem.itemName];
+  console.log(price);
+  //inventory.find(item => (item.name == boughtItem && item.amountOwned > 0 );
+  if(boughtItem.amountOwned > 0) {
+    boughtItem.amountOwned--;
+    console.log("bought item", boughtItem);
+    setMoney(money + price);
+    updateSaleHistory(boughtItem.itemName, price);
+    if (boughtItem.amountOwned === 0) {
+      const resultingInventory = inventory.filter(item => item.amountOwned !== 0);
+      setInventory(resultingInventory);
+
+    }
+  }
+}
+
+const SellScreen = ({ inventory, money, setMoney, setInventory, itemPrices, setItemPrices, updateSaleHistory} ) => {
 
   setUpInventory(inventory);
 
-  const customerBought = (boughtItem) => {
-    //inventory.find(item => (item.name == boughtItem && item.amountOwned > 0 );
-    if(boughtItem.amountOwned > 0) {
-      boughtItem.amountOwned--;
-      setMoney(money + boughtItem.price);
-      if (boughtItem.amountOwned === 0) {
-        const resultingInventory = inventory.filter(item => item.amountOwned !== 0);
-        setInventory(resultingInventory);
+  const [shouldExamineItem, setShouldExamineItem] = useState(false);
+  if (shouldExamineItem) {
+    console.log("examining item", inventory);
 
-      }
-    }
+    const onBuy = (item) => customerBought(item, inventory, setInventory, setMoney, updateSaleHistory, money, itemPrices);
+    examineRandomItem(inventory, onBuy);
+    setShouldExamineItem(false);
   }
 
-  if (intervalId !== undefined) {
-    clearInterval(intervalId);
+  if (intervalId === undefined) {
+    intervalId = setInterval(() => {
+      setShouldExamineItem(true);
+    }, 2000);
   }
-  intervalId = setInterval(examineRandomItem(inventory, customerBought), 2000);
+
+
 
   const setItemForSaleStatus = (newStatus) => (itemName) => {
     const item = inventory.find(item => item.itemName === itemName);

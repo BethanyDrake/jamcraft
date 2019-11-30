@@ -10,7 +10,7 @@ import BuyScreen from './BuyScreen';
 import MakeScreen from './MakeScreen';
 import SellScreen from './SellScreen';
 import Chip from '@material-ui/core/Chip';
-
+import LedgerScreen from './LedgerScreen';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -55,6 +55,14 @@ const newInventoryItem = (itemName, cost, colour) => ({
   amountOwned: 1
 })
 
+const updateSaleHistory = (saleHistory, setSaleHistory, itemName, salePrice) => {
+  const lineItem = {
+    itemName,
+    salePrice
+  }
+  setSaleHistory([...saleHistory, lineItem]);
+}
+
 export default function SimpleTabs({itemPrices, setItemPrices}) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
@@ -66,6 +74,7 @@ export default function SimpleTabs({itemPrices, setItemPrices}) {
   const [money, setMoney] = useState(500);
   const [inventory, setInventory] = useState([]);
 
+  const [saleHistory, setSaleHistory] = useState([]);
   const onBuy = (cost, ingredientName, colour) => {
 
     const matchingItemSlot = inventory.find(item => item.itemName === ingredientName);
@@ -81,6 +90,8 @@ export default function SimpleTabs({itemPrices, setItemPrices}) {
     return cost <= money;
   }
 
+  const updateSaleHistoryInner = (itemName, salePrice) => updateSaleHistory(saleHistory, setSaleHistory, itemName, salePrice);
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -89,6 +100,7 @@ export default function SimpleTabs({itemPrices, setItemPrices}) {
           <Tab label="Buy" {...a11yProps(0)} />
           <Tab label="Make" {...a11yProps(1)} />
           <Tab label="Sell" {...a11yProps(2)} />
+          <Tab label="Records" {...a11yProps(3)} />
         </Tabs>
         <div style={{alignSelf: "center", justifyContent: "center", paddingRight: "20px"}} >
         <Chip label={`$${money}`}/>
@@ -104,7 +116,10 @@ export default function SimpleTabs({itemPrices, setItemPrices}) {
         <MakeScreen ingredients={inventory} setIngredients={setInventory}/>
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <SellScreen itemPrices={itemPrices} setItemPrices={setItemPrices} inventory={inventory} money={money} setMoney={setMoney} setInventory={setInventory}/>
+        <SellScreen itemPrices={itemPrices} setItemPrices={setItemPrices} inventory={inventory} money={money} setMoney={setMoney} setInventory={setInventory} updateSaleHistory={updateSaleHistoryInner} />
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+        <LedgerScreen saleHistory={saleHistory}/>
       </TabPanel>
     </div>
   );
