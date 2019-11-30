@@ -1,4 +1,5 @@
-export const items = [
+
+const unvaluedItems = [
   { name: "black", colour: [0, 0, 0], value: 10, hexString: "#000000" },
   { name: "midnight", colour: [0, 0, 2], value: 10, hexString: "#000040" },
   { name: "navy", colour: [0, 0, 4], value: 10, hexString: "#000080" },
@@ -125,3 +126,14 @@ export const items = [
   { name: "pale yellow", colour: [8, 8, 6], value: 10, hexString: "#FFFFC0" },
   { name: "white", colour: [8, 8, 8], value: 10, hexString: "#FFFFFF" }
 ];
+
+
+
+
+export const items = unvaluedItems.map(item => {
+  const value = Math.floor((Math.random() * 200));
+  return {
+    ...item,
+    value,
+  };
+})
