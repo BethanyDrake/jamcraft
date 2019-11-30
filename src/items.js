@@ -102,7 +102,7 @@ export const items = [
   { name: "red", colour: [8, 0, 0], value: 10, hexString: "#FF0000" },
   { name: "half-hearted red rose", colour: [8, 0, 2], value: 10, hexString: "#FF0040" },
   { name: "hot pink", colour: [8, 0, 4], value: 10, hexString: "#FF0080" },
-  { name: "so so pink", colour: [8, 0, 6], value: 10, hexString: "#FF00C0" },
+  { name: "so very pink", colour: [8, 0, 6], value: 10, hexString: "#FF00C0" },
   { name: "pink pizzazz", colour: [8, 0, 8], value: 10, hexString: "#FF00FF" },
   { name: "vermillion", colour: [8, 2, 0], value: 10, hexString: "#FF4000" },
   { name: "sunburnt cyclops", colour: [8, 2, 2], value: 10, hexString: "#FF4040" },

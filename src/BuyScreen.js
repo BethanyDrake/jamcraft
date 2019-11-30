@@ -42,9 +42,9 @@ const BuyScreen = (props) => {
   })
 
 
-  const initialIngredients = ["red", "blue", "harlequin"].map(ingredientName => {
+  const initialIngredients = ["yellow", "pink pizzazz", "cyan"].map(ingredientName => {
     const item = items.find(item => item.name === ingredientName) || {};
-    return newIngredient(item.name, item.value, 3, item.colour);
+    return newIngredient(item.name, item.value, 10, item.colour);
   })
   const [ingredients, setIngredients] = useState(initialIngredients);
   const [buyCount, setBuyCount] = useState(0);

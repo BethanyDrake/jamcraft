@@ -4,7 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import {ColourIcon} from './ColourIcon';
 import {items} from './items';
-import {colourToHex} from './colourUtil';
+import {colourToHex, mix} from './colourUtil';
 
 import { styled } from '@material-ui/core/styles';
 const MyPaper = styled(Paper)({
@@ -77,9 +77,9 @@ const MakeScreen = ({ingredients, setIngredients}) => {
 
     const colour1 = ingredient1.colour;
     const colour2 = ingredient2.colour;
-    const mix = (c1, c2) => {
-      return Math.ceil((c1 + c2) / 8) * 4;
-    }
+    // const mix = (c1, c2) => {
+    //   return Math.ceil((c1 + c2) / 8) * 4;
+    // }
 
     const newColour = ([0,0,0]).map((_,i) => mix(colour1[i], colour2[i]));
 
@@ -111,10 +111,6 @@ const MakeScreen = ({ingredients, setIngredients}) => {
       ])
 
     }
-
-
-
-
   }
 
 
@@ -127,7 +123,7 @@ const MakeScreen = ({ingredients, setIngredients}) => {
       : (<Button variant="contained" disabled > can't make </Button>)
     }
     </div>
-    <div style={{display:"flex"}}>
+    <div style={{display:"flex", width:"100%", flexWrap:"wrap"}}>
 
     {ingredients
       .map((ingredient, i) => <MakeTile
