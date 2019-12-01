@@ -31,12 +31,9 @@ const DifficultyTile = ({difficultyName, difficultyValue, colourName, setDifficu
 }
 
 const DifficultyScreen = ({setDifficulty}) => {
-
-
-
   return (
     <div>
-    <h1 style={{ textAlign: "center"}}>Choose your difficulty:</h1>:
+    <h1 style={{ textAlign: "center", paddingTop: "100px"}}>Choose your difficulty:</h1>:
     <div style={{display:"flex", justifyContent: "center"}}>
       <DifficultyTile difficultyName={"zen"} difficultyValue={4} colourName={"lilac"} setDifficulty={setDifficulty}/>
     <DifficultyTile difficultyName={"easy"} difficultyValue={1} colourName={"waterspout"} setDifficulty={setDifficulty}/>

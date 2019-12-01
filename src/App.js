@@ -59,7 +59,6 @@ const recalculateUltraValues = () => {
 function App() {
 
   const [itemPrices, setItemPrices] = useState(getInitialItemPrices());
-  console.log(itemPrices);
   const [difficulty, setDifficulty] = useState(-1);
 
   if (!diffDone && difficulty !== -1) {
