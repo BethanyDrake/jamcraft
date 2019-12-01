@@ -105,7 +105,7 @@ const MakeScreen = ({ingredients, setIngredients}) => {
     setItem2(undefined);
 
     const newColourName = items.filter(i => colourToHex(i.colour) === colourToHex(newColour))[0].name;
-
+    const newColourValue = items.filter(i => colourToHex(i.colour) === colourToHex(newColour))[0].value;
 
     const existingIngredient = remaingIngredients.filter(i => i.itemName === newColourName)[0];
     if (existingIngredient) {
@@ -116,6 +116,7 @@ const MakeScreen = ({ingredients, setIngredients}) => {
       const newIngredient = {
         itemName: newColourName,
         cost: Math.floor((ingredient1.cost + ingredient2.cost) / 2),
+        value: newColourValue,
         colour: newColour,
         amountOwned: 2,
       }

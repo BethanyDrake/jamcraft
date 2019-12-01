@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import {examineRandomItem} from './Customer';
 import {buttonStyles} from './util';
 import {ColourIcon} from './ColourIcon';
+//import {items} from './items';
 
 import { styled } from '@material-ui/core/styles';
 const MyPaper = styled(Paper)({
@@ -31,15 +32,22 @@ const useStyles = makeStyles({
 
 
 
-const PriceFeild = ({itemPrices, setItemPrices, itemName}) => {
+const PriceFeild = ({itemPrices, setItemPrices, itemName, initialCost}) => {
   const classes = useStyles();
-  const [value, setValue] = useState(itemPrices[itemName]);
+  const initialValue = itemPrices[itemName] === undefined ? initialCost : itemPrices[itemName];
 
+  const [value, setValue] = useState(initialValue);
+  if(itemPrices[itemName] === undefined) {
+    setItemPrices({
+      ...itemPrices,
+      [itemName]: initialCost,
+    })
+  }
+  // console.log({itemPrices, setItemPrices, itemName, initialCost})
+  // console.log({value})
   const handleInputChange = event => {
     const newValue = event.target.value === '' ? 0 : Number(event.target.value)
     setValue(newValue);
-
-
     const newItemPrices = {
       ...itemPrices,
       [itemName]: newValue,
@@ -76,7 +84,7 @@ const PriceFeild = ({itemPrices, setItemPrices, itemName}) => {
 
 
 
-const NotYetForSaleTile = ({price, itemName, amountOwned, itemPrices, setItemPrices, setItemForSale, colour}) => {
+const NotYetForSaleTile = ({price, itemName, amountOwned, itemPrices, setItemPrices, setItemForSale, colour, cost}) => {
 
   const setForSale = () => {
     setItemForSale(itemName);
@@ -85,7 +93,7 @@ const NotYetForSaleTile = ({price, itemName, amountOwned, itemPrices, setItemPri
 
   return (
     <MyPaper>
-    <SaleTileInformation itemName={itemName} itemPrices={itemPrices} setItemPrices={setItemPrices} colour={colour} amountOwned={amountOwned}/>
+    <SaleTileInformation itemName={itemName} itemPrices={itemPrices} setItemPrices={setItemPrices} colour={colour} amountOwned={amountOwned} initialCost={cost}/>
         <TextBox>
     <Button style={buttonStyles} variant="contained" onClick={setForSale}> Sell </Button>
         </TextBox>
@@ -93,37 +101,31 @@ const NotYetForSaleTile = ({price, itemName, amountOwned, itemPrices, setItemPri
   )
 }
 
-const SaleTileInformation = ({colour, amountOwned, itemName, itemPrices, setItemPrices}) => {
+const SaleTileInformation = ({colour, amountOwned, itemName, itemPrices, setItemPrices, initialCost}) => {
+
   return (
     <TextBox>
     <ColourIcon colour={colour}/>
     <h3> {itemName} </h3>
-    price: $<PriceFeild itemName={itemName} itemPrices={itemPrices} setItemPrices={setItemPrices}/>
+    price: $<PriceFeild itemName={itemName} initialCost={initialCost} itemPrices={itemPrices} setItemPrices={setItemPrices}/>
     <p> available: {amountOwned}</p>
     </TextBox>
   )
 }
 
-const ForSaleTile = ({price, itemName, amountOwned, itemPrices, setItemPrices, removeItemFromSale, colour}) => {
+const ForSaleTile = ({price, itemName, amountOwned, itemPrices, setItemPrices, removeItemFromSale, colour, cost}) => {
 
   const removeFromSale = () => {
     removeItemFromSale(itemName);
   }
   return (
     <MyPaper>
-    <SaleTileInformation itemName={itemName} itemPrices={itemPrices} setItemPrices={setItemPrices} colour={colour} amountOwned={amountOwned}/>
+    <SaleTileInformation itemName={itemName} itemPrices={itemPrices} setItemPrices={setItemPrices} colour={colour} amountOwned={amountOwned} initialCost={cost}/>
         <TextBox>
     <Button style={buttonStyles} variant="contained" onClick={removeFromSale}> Remove from sale </Button>
         </TextBox>
     </MyPaper>
   )
-}
-
-const setUpInventory = (inventory) => {
-  inventory.forEach(item => {
-    if (item.price === undefined) item.price = item.cost;
-    if (item.value === undefined) item.value = item.cost;
-  })
 }
 
 let intervalId;
@@ -145,13 +147,11 @@ const customerBought = (boughtItem, inventory, setInventory, setMoney, updateSal
 
 const SellScreen = ({ inventory, money, setMoney, setInventory, itemPrices, setItemPrices, updateSaleHistory} ) => {
 
-  setUpInventory(inventory);
-
   const [shouldExamineItem, setShouldExamineItem] = useState(false);
   if (shouldExamineItem) {
 
     const onBuy = (item) => customerBought(item, inventory, setInventory, setMoney, updateSaleHistory, money, itemPrices);
-    examineRandomItem(inventory, onBuy);
+    examineRandomItem(inventory, onBuy, itemPrices);
     setShouldExamineItem(false);
   }
 

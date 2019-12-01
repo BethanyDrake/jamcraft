@@ -7,6 +7,7 @@
 //after looking at an item, they have a chance of leaving the store. if they have looked at all the items, they will leave the store.
 
 import {getRandomItemInArray} from './util'
+import {items} from './items'
 const chanceOfBuying = (price, value) => {
   const chance = 0.9 - (0.4 * price / value);
   return chance > 0 ? chance : 0;
@@ -14,11 +15,13 @@ const chanceOfBuying = (price, value) => {
 
 
 
-export const examineRandomItem = (items, buy) => {
-  const forSaleItems = items.filter(item => item.isForSale);
+export const examineRandomItem = (inventory, buy, itemPrices) => {
+  const forSaleItems = inventory.filter(item => item.isForSale);
   if (forSaleItems.length === 0) return;
   const item = getRandomItemInArray(forSaleItems);
-  const chanceOfBuyingItem = chanceOfBuying(item.price, item.value);
+  const price = itemPrices[item.itemName];
+  const value = items.filter(i => i.name === item.itemName)[0].value;
+  const chanceOfBuyingItem = chanceOfBuying(price, value);
   if (Math.random() < chanceOfBuyingItem) {
     buy(item);
   }
