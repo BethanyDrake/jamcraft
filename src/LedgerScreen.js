@@ -42,7 +42,7 @@ function SimpleTable({rows}) {
                 <span style={{paddingLeft:"10px"}}>{row.name}</span></h4>
               </TableCell>
               <TableCell align="center">{row.sold}</TableCell>
-              <TableCell align="center">${row.averagePrice}</TableCell>
+              <TableCell align="center">${row.averagePrice.toFixed(2)}</TableCell>
               <TableCell align="center">${row.bestPrice}</TableCell>
             </TableRow>
           ))}
