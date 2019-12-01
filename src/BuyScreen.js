@@ -125,7 +125,7 @@ const restock = (ingredients, setIngredients) => {
 
 
 const stockableIngredients = [
-  "cyan", "yellow", "pink pizzazz", "ultramarine", "spring green", "rose", "pistachio", "magenta", "vermillion", "daffodil", "amber",
+  "cyan", "yellow", "pink pizzazz", "ultramarine", "spring green", "rose", "pistachio", "magenta", "vermillion", "daffodil", "amber", "black", "cobalt", 
 ]
 
 
