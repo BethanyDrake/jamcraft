@@ -56,6 +56,7 @@ const recalculateUltraValues = () => {
   });
 }
 
+
 function App() {
 
   const [itemPrices, setItemPrices] = useState(getInitialItemPrices());
@@ -90,11 +91,15 @@ function App() {
 
 
   if (difficulty === -1) {
-    return (<DifficultyScreen setDifficulty={setDifficulty}/>)
+    return (
+      <div className="App" style={{backgroundColor:"white", width: "800px", height: "800px"}}>
+      <DifficultyScreen setDifficulty={setDifficulty}/>
+    </div>)
   }
 
   return (
-    <div className="App">
+
+    <div className="App" style={{backgroundColor:"white", width: "800px", height: "800px"}}>
       <SimpleTabs itemPrices={itemPrices} setItemPrices={setItemPrices}/>
     </div>
   );
