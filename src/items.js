@@ -128,7 +128,7 @@ const unvaluedItems = [
 ];
 
 export const items = unvaluedItems.map(item => {
-  const value = Math.floor((Math.random() * 200));
+  const value = Math.ceil((Math.random() * 200));
   return {
     ...item,
     value,

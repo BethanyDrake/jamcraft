@@ -38,9 +38,11 @@ const DifficultyScreen = ({setDifficulty}) => {
     <div>
     <h1 style={{ textAlign: "center"}}>Choose your difficulty:</h1>:
     <div style={{display:"flex", justifyContent: "center"}}>
+      <DifficultyTile difficultyName={"zen"} difficultyValue={4} colourName={"lilac"} setDifficulty={setDifficulty}/>
     <DifficultyTile difficultyName={"easy"} difficultyValue={1} colourName={"waterspout"} setDifficulty={setDifficulty}/>
-    <DifficultyTile difficultyName={"medium"} difficultyValue={1} colourName={"guppie green"} setDifficulty={setDifficulty}/>
-    <DifficultyTile difficultyName={"hard"} difficultyValue={1} colourName={"carmine"} setDifficulty={setDifficulty}/>
+    <DifficultyTile difficultyName={"medium"} difficultyValue={2} colourName={"guppie green"} setDifficulty={setDifficulty}/>
+    <DifficultyTile difficultyName={"hard"} difficultyValue={3} colourName={"carmine"} setDifficulty={setDifficulty}/>
+    <DifficultyTile difficultyName={"ultra"} difficultyValue={5} colourName={"black"} setDifficulty={setDifficulty}/>
     </div>
     </div>
   )
