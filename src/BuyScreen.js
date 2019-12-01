@@ -125,7 +125,7 @@ const restock = (ingredients, setIngredients) => {
 
 
 export const stockableIngredients = [
-  "cyan", "yellow", "pink pizzazz", "ultramarine", "spring green", "rose", "pistachio", "magenta", "vermillion", "amber", "black", "cobalt",
+  "cyan", "yellow", "pink pizzazz", "black", "red", "blue", "harlequin"
 ]
 
 export default BuyScreen;
