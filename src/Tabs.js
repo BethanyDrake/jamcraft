@@ -73,7 +73,11 @@ export default function SimpleTabs({itemPrices, setItemPrices, difficulty}) {
 
   const [money, setMoney1] = useState(500);
   const setMoney = (value) => {
-    if(window.kongregate) window.kongregate.stats.submit("money ("+difficulty +")", value);
+    console.log(window);
+
+    var myEvent = { amount: value, difficulty };
+    window.parent.postMessage(myEvent, '*');
+
     setMoney1(value);
   }
 
