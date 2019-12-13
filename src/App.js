@@ -87,6 +87,9 @@ function App() {
       diffDone = true;
   }
 
+  const difficultyName = [
+    "easy", "medium", "hard", "zen", "ultra"
+  ]
 
 
 
@@ -100,7 +103,7 @@ function App() {
   return (
 
     <div className="App" style={{backgroundColor:"white", width: "800px", height: "800px"}}>
-      <SimpleTabs itemPrices={itemPrices} setItemPrices={setItemPrices}/>
+      <SimpleTabs itemPrices={itemPrices} setItemPrices={setItemPrices} difficulty={difficultyName[difficulty]}/>
     </div>
   );
 }

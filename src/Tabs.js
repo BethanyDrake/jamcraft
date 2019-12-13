@@ -63,7 +63,7 @@ const updateSaleHistory = (saleHistory, setSaleHistory, itemName, salePrice) => 
   setSaleHistory([...saleHistory, lineItem]);
 }
 
-export default function SimpleTabs({itemPrices, setItemPrices}) {
+export default function SimpleTabs({itemPrices, setItemPrices, difficulty}) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -71,7 +71,12 @@ export default function SimpleTabs({itemPrices, setItemPrices}) {
     setValue(newValue);
   };
 
-  const [money, setMoney] = useState(500);
+  const [money, setMoney1] = useState(500);
+  const setMoney = (value) => {
+    if(window.kongregate) window.kongregate.stats.submit("money ("+difficulty +")", value);
+    setMoney1(value);
+  }
+
   const [inventory, setInventory] = useState([]);
 
   const [saleHistory, setSaleHistory] = useState([]);
@@ -98,7 +103,7 @@ export default function SimpleTabs({itemPrices, setItemPrices}) {
       <div style={{display: "flex", justifyContent: "space-between"}}>
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
           <Tab label="Buy" {...a11yProps(0)} />
-          <Tab label="Make" {...a11yProps(1)} />
+          <Tab label="Mix" {...a11yProps(1)} />
           <Tab label="Sell" {...a11yProps(2)} />
           <Tab label="Records" {...a11yProps(3)} />
         </Tabs>
