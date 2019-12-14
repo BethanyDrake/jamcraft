@@ -72,6 +72,7 @@ export default function SimpleTabs({itemPrices, setItemPrices, difficulty}) {
   };
 
   const [money, setMoney1] = useState(500);
+  
   const setMoney = (value) => {
     console.log(window);
 

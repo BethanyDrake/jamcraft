@@ -88,7 +88,7 @@ function App() {
   }
 
   const difficultyName = [
-    "easy", "medium", "hard", "zen", "ultra"
+    "error", "easy", "medium", "hard", "zen", "ultra"
   ]
 
 
